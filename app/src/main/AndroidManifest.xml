@@ -44,6 +44,15 @@
                 <category android:name="com.example.jbruzek.myapplication" />
             </intent-filter>
         </receiver>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyDK6jL5o_7dFLE5lZt_VhD53z_46Aq14mI" />
+
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -53,7 +62,10 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!--
       IMPORTANT: Change "com.parse.starter.permission.C2D_MESSAGE" in the lines below
       to match your app's package name + ".permission.C2D_MESSAGE".
@@ -61,5 +73,10 @@
     <permission android:protectionLevel="signature"
         android:name="com.example.jbruzek.myapplication.permission.C2D_MESSAGE" />
     <uses-permission android:name="com.example.jbruek.myapplication.permission.C2D_MESSAGE" />
+
+    <!--This is for OpenGL with Google Maps-->
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true"/>
 
 </manifest>

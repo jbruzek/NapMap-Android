@@ -39,14 +39,11 @@ public class MainActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //set up Parse
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, "ni4fDAUMR7GIrlUSN86APVmlrQt91a4UXO78tkyE", "lraQ7qAwiAfGylhV4wEWWtyLWmzhZweZnrjEZc1F");
 
-        ParseObject testObject = new ParseObject("TestObject");
-        testObject.put("foo", "bar");
-        testObject.saveInBackground();
-
-
+        //set up the Nav Drawer
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
@@ -56,6 +53,7 @@ public class MainActivity extends Activity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
+        //commit the map fragment
         if (getFragmentManager().findFragmentById(R.layout.map_fragment) == null) {
             mapFrag = new MapFragment();
         }
