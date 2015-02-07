@@ -2,13 +2,10 @@ package com.example.jbruzek.myapplication;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -19,18 +16,18 @@ import com.google.android.gms.maps.model.LatLng;
 /**
  * Created by jbruzek on 2/7/15.
  */
-public class MapFragment extends Fragment {
+public class AddLocationFragment extends Fragment {
 
     MapView mapView;
     GoogleMap map;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.map_fragment, container, false);
+        View v = inflater.inflate(R.layout.add_location_fragment, container, false);
         container.removeAllViews();
 
         // Gets the MapView from the XML layout and creates it
-        mapView = (MapView) v.findViewById(R.id.mapview);
+        mapView = (MapView) v.findViewById(R.id.mapview_add);
         mapView.onCreate(savedInstanceState);
 
         // Gets to GoogleMap from the MapView and does initialization stuff
@@ -40,7 +37,7 @@ public class MapFragment extends Fragment {
 
         // Needs to call MapsInitializer before doing any CameraUpdateFactory calls
         //try {
-            MapsInitializer.initialize(this.getActivity());
+        MapsInitializer.initialize(this.getActivity());
         //} catch (GooglePlayServicesNotAvailableException e) {
         //    e.printStackTrace();
         //}
@@ -69,5 +66,4 @@ public class MapFragment extends Fragment {
         super.onLowMemory();
         mapView.onLowMemory();
     }
-
 }

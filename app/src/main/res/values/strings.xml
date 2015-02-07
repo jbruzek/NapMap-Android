@@ -9,5 +9,7 @@
     <string name="nap_locations">Nap Locations</string>
     <string name="map">Map</string>
     <string name="submit">Submit a Nap</string>
+    <string name="title_activity_location">LocationActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

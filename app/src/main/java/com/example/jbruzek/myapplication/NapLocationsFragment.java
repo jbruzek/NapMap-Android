@@ -3,6 +3,7 @@ package com.example.jbruzek.myapplication;
 import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
 
@@ -23,6 +25,8 @@ public class NapLocationsFragment extends ListFragment implements ParseCallbacks
 
     private ParseHelper ph;
     private LayoutInflater inflater;
+    private ArrayList<Location> list;
+    private Context context;
     /**
      * initialize the interface
      */
@@ -37,6 +41,8 @@ public class NapLocationsFragment extends ListFragment implements ParseCallbacks
         FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
         fab.attachToListView(listView);
         fab.show(false);
+
+        context = getActivity().getApplicationContext();
 
         ph.queryLocations();
 
@@ -58,7 +64,7 @@ public class NapLocationsFragment extends ListFragment implements ParseCallbacks
 
     @Override
     public void complete() {
-        ArrayList<Location> list = ph.getLocations();
+        list = ph.getLocations();
         Log.d("score", "Length of list: " + list.size());
         Location[] locations = new Location[list.size()];
         for (int i = 0; i < list.size(); i++) {
@@ -67,6 +73,17 @@ public class NapLocationsFragment extends ListFragment implements ParseCallbacks
 
         LocationAdapter adapter = new LocationAdapter(inflater.getContext(), locations);
         setListAdapter(adapter);
+    }
+
+    /**
+     * when an item is clicked
+     */
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        Location li = list.get(position);
+        Intent intent = new Intent(context, LocationActivity.class);
+        intent.putExtra("title", li.title());
+        startActivity(intent);
     }
 
     /**

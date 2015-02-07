@@ -3,6 +3,7 @@ package com.example.jbruzek.myapplication;
 import android.app.Activity;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -14,6 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.drive.Drive;
+import com.google.android.gms.location.LocationServices;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
@@ -23,6 +27,7 @@ public class MainActivity extends Activity
 
     private NapLocationsFragment locationsFrag;
     private MapFragment mapFrag;
+    private AddLocationFragment addFrag;
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -42,6 +47,7 @@ public class MainActivity extends Activity
         //set up Parse
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, "ni4fDAUMR7GIrlUSN86APVmlrQt91a4UXO78tkyE", "lraQ7qAwiAfGylhV4wEWWtyLWmzhZweZnrjEZc1F");
+
 
         //set up the Nav Drawer
         mNavigationDrawerFragment = (NavigationDrawerFragment)
@@ -78,6 +84,7 @@ public class MainActivity extends Activity
                 FragmentTransaction ft1 = fm.beginTransaction();
                 ft1.replace(R.id.container, mapFrag)
                     .commit();
+                mTitle = getString(R.string.map);
                 break;
             case 1:
                 if (fm.findFragmentById(R.layout.locations_fragment) == null) {
@@ -86,8 +93,16 @@ public class MainActivity extends Activity
                 FragmentTransaction ft2 = fm.beginTransaction();
                 ft2.replace(R.id.container, locationsFrag)
                         .commit();
+                mTitle = getString(R.string.nap_locations);
                 break;
             case 2:
+                if (fm.findFragmentById(R.layout.add_location_fragment) == null) {
+                    addFrag = new AddLocationFragment();
+                }
+                FragmentTransaction ft3 = fm.beginTransaction();
+                ft3.replace(R.id.container, addFrag)
+                        .commit();
+                mTitle = getString(R.string.submit);
                 break;
         }
 
@@ -136,7 +151,10 @@ public class MainActivity extends Activity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
-            return true;
+            AlertDialog.Builder adb = new AlertDialog.Builder(this);
+            adb.setTitle("NapMap");
+            adb.setMessage("NapMap was built as a part of VT Hacks 2015 by Joe Bruzek and Adam Barnes");
+            adb.show();
         }
         return super.onOptionsItemSelected(item);
     }
