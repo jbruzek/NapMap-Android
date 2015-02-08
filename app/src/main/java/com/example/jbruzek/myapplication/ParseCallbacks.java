@@ -6,4 +6,5 @@ package com.example.jbruzek.myapplication;
 public interface ParseCallbacks {
 
     public void complete();
+    public void commentsComplete();
 }

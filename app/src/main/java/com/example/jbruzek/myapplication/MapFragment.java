@@ -14,15 +14,20 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.ArrayList;
 
 /**
  * Created by jbruzek on 2/7/15.
  */
-public class MapFragment extends Fragment {
+public class MapFragment extends Fragment implements ParseCallbacks {
 
-    MapView mapView;
-    GoogleMap map;
+    private MapView mapView;
+    private GoogleMap map;
+    private ParseHelper ph;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,8 +51,11 @@ public class MapFragment extends Fragment {
         //}
 
         // Updates the location and zoom of the MapView
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(37.2303918, -80.4218075), 15);
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(37.22666, -80.4209), 15);
         map.animateCamera(cameraUpdate);
+
+        ph = new ParseHelper(this);
+        ph.queryLocations();
 
         return v;
     }
@@ -64,10 +72,24 @@ public class MapFragment extends Fragment {
         mapView.onDestroy();
     }
 
+
+
     @Override
     public void onLowMemory() {
         super.onLowMemory();
         mapView.onLowMemory();
     }
 
+    @Override
+    public void complete() {
+        ArrayList<Location> li = ph.getLocations();
+        for (Location l : li) {
+            map.addMarker(new MarkerOptions().position(new LatLng(l.latitude(), l.longitude())).title(l.title()).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_red_pillow)));
+        }
+    }
+
+    @Override
+    public void commentsComplete() {
+        //nothing here
+    }
 }

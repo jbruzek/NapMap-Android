@@ -5,10 +5,12 @@ package com.example.jbruzek.myapplication;
  */
 public class Location {
     private String title = "";
-    private float longitude = 0;
-    private float latitude = 0;
     private int fullness = 0;
+    private double rating = 0.0;
+    private double longitude = 0.0;
+    private double latitude = 0.0;
     private String description = "";
+    private String id = "";
 
     public Location() {
         //empty constructor
@@ -18,7 +20,7 @@ public class Location {
         this.title = title;
     }
 
-    public Location(String title, float longitude, float latitude) {
+    public Location(String title, double longitude, double latitude) {
         this.title = title;
         this.longitude = longitude;
         this.latitude = latitude;
@@ -27,6 +29,18 @@ public class Location {
     public Location(String title, int fullness) {
         this.title = title;
         this.fullness = fullness;
+    }
+
+    public String id() {
+        return id;
+    }
+
+    public void id(String id) {
+        this.id = id;
+    }
+
+    public void title(String title) {
+        this.title = title;
     }
 
     public String title() {
@@ -43,5 +57,33 @@ public class Location {
 
     public int fullness() {
         return fullness;
+    }
+
+    public void fullness(int fullness) {
+        this.fullness = fullness;
+    }
+
+    public void rating(double rating) {
+        this.rating = rating;
+    }
+
+    public double rating() {
+        return rating;
+    }
+
+    public void latitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double latitude() {
+        return latitude;
+    }
+
+    public void longitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double longitude() {
+        return longitude;
     }
 }

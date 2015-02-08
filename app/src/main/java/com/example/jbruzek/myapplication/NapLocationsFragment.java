@@ -68,11 +68,17 @@ public class NapLocationsFragment extends ListFragment implements ParseCallbacks
         Log.d("score", "Length of list: " + list.size());
         Location[] locations = new Location[list.size()];
         for (int i = 0; i < list.size(); i++) {
+            Log.d("Location " + i + " id:", list.get(i).id() + "");
             locations[i] = list.get(i);
         }
 
         LocationAdapter adapter = new LocationAdapter(inflater.getContext(), locations);
         setListAdapter(adapter);
+    }
+
+    @Override
+    public void commentsComplete() {
+        //nothing here
     }
 
     /**
@@ -81,7 +87,9 @@ public class NapLocationsFragment extends ListFragment implements ParseCallbacks
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         Location li = list.get(position);
+        Log.d("intent", "Passing id " + li.id());
         Intent intent = new Intent(context, LocationActivity.class);
+        intent.putExtra("id", li.id());
         intent.putExtra("title", li.title());
         startActivity(intent);
     }
@@ -117,11 +125,19 @@ public class NapLocationsFragment extends ListFragment implements ParseCallbacks
             View rowView = inflater.inflate(R.layout.location_item, parent, false);
             TextView title = (TextView) rowView.findViewById(R.id.location_title);
             title.setText(values[position].title());
+            TextView rating = (TextView) rowView.findViewById(R.id.location_sub_1);
+            rating.setText(doubToString(values[position].rating()) + " out of 5 pillows");
             TextView fullness = (TextView) rowView.findViewById(R.id.location_sub_2);
             int f = values[position].fullness();
             if (f == 1) fullness.setText("1 person napping here now");
             else fullness.setText(f + " people napping here now");
             return rowView;
+        }
+
+        private String doubToString(Double l) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(l);
+            return sb.toString();
         }
     }
 }

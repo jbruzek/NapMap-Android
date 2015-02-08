@@ -1,72 +1,88 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.jbruzek.myapplication.LocationActivity">
-
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/map"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:layout_marginBottom="32dp"
-        android:name="com.google.android.gms.maps.MapFragment"/>
-
-    <RelativeLayout
+    
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.gms.maps.MapView android:id="@+id/mapview_header"
+            android:layout_width="fill_parent"
+            android:layout_height="288dp" />
 
         <TextView
             android:id="@+id/location_title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:hint="Location Name"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+            android:gravity="center"
+            android:textSize="20dp"
+            android:layout_margin="16dp"/>
 
         <TextView
-            android:id="@+id/location_description_input"
+            android:id="@+id/location_description"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:hint="Description"/>
+            android:gravity="center"
+            android:layout_margin="16dp"/>
 
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <Button
-            android:id="@+id/cancel_new_location"
-            android:background="@drawable/button_secondary"
-            android:layout_width="0dp"
-            android:layout_margin="16dp"
+        <RatingBar
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:elevation="2dp"
-            android:text="Cancel"/>
+            android:id="@+id/ratingBar"
+            android:layout_margin="16dp"
+            style="@style/customRatingBar"
+            android:layout_gravity="center_horizontal" />
+
+        <ListView
+            android:id="@+id/comments"
+            android:layout_width="fill_parent"
+            android:layout_height="288dp"
+            android:layout_margin="16dp">
+        </ListView>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/cancel_new_location"
+                android:background="@drawable/button_secondary"
+                android:layout_width="0dp"
+                android:layout_margin="16dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:elevation="2dp"
+                android:text="Rate"/>
+
+            <Button
+                android:id="@+id/submit_new_location"
+                android:background="@drawable/button_secondary"
+                android:layout_width="0dp"
+                android:layout_margin="16dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:elevation="2dp"
+                android:text="Comment"/>
+
+        </LinearLayout>
+
 
         <Button
-            android:id="@+id/submit_new_location"
+            android:id="@+id/nap_here"
             android:background="@drawable/button_primary"
             android:textColor="@color/white"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_margin="16dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:elevation="2dp"
-            android:text="Submit"/>
+            android:text="Nap Here!"/>
+
 
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>
