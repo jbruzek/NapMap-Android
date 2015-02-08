@@ -55,7 +55,7 @@ public class MapFragment extends Fragment implements ParseCallbacks {
         map.animateCamera(cameraUpdate);
 
         ph = new ParseHelper(this);
-        ph.queryLocations();
+        ph.queryLocations(5);
 
         return v;
     }
@@ -84,7 +84,7 @@ public class MapFragment extends Fragment implements ParseCallbacks {
     public void complete() {
         ArrayList<Location> li = ph.getLocations();
         for (Location l : li) {
-            map.addMarker(new MarkerOptions().position(new LatLng(l.latitude(), l.longitude())).title(l.title()).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_red_pillow)));
+            map.addMarker(new MarkerOptions().position(new LatLng(l.latitude(), l.longitude())).title(l.title()).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_pillow_pin)));
         }
     }
 

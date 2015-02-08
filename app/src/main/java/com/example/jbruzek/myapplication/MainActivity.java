@@ -68,13 +68,6 @@ public class MainActivity extends Activity
                 .commit();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "ni4fDAUMR7GIrlUSN86APVmlrQt91a4UXO78tkyE", "lraQ7qAwiAfGylhV4wEWWtyLWmzhZweZnrjEZc1F");
-    }
-
     /**
      * this changes the fragment that is displayed currently based on when an item in the
      * nav drawer is selected

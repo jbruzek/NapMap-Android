@@ -44,7 +44,7 @@ public class NapLocationsFragment extends ListFragment implements ParseCallbacks
 
         context = getActivity().getApplicationContext();
 
-        ph.queryLocations();
+        ph.queryLocations(25);
 
         return v;
     }

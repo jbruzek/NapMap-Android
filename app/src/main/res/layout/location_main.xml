@@ -1,5 +1,6 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_scroll_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -37,20 +38,14 @@
             style="@style/customRatingBar"
             android:layout_gravity="center_horizontal" />
 
-        <ListView
-            android:id="@+id/comments"
-            android:layout_width="fill_parent"
-            android:layout_height="288dp"
-            android:layout_margin="16dp">
-        </ListView>
-
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/cancel_new_location"
+                android:id="@+id/rate_location"
                 android:background="@drawable/button_secondary"
+                android:textColor="@color/purple"
                 android:layout_width="0dp"
                 android:layout_margin="16dp"
                 android:layout_height="wrap_content"
@@ -59,8 +54,9 @@
                 android:text="Rate"/>
 
             <Button
-                android:id="@+id/submit_new_location"
+                android:id="@+id/comment_location"
                 android:background="@drawable/button_secondary"
+                android:textColor="@color/purple"
                 android:layout_width="0dp"
                 android:layout_margin="16dp"
                 android:layout_height="wrap_content"
@@ -81,6 +77,21 @@
             android:layout_weight="1"
             android:elevation="2dp"
             android:text="Nap Here!"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="comments"/>
+
+        <ListView
+            android:id="@+id/comments"
+            android:layout_width="fill_parent"
+            android:layout_height="288dp"
+            android:layout_margin="16dp">
+        </ListView>
+
+
 
 
     </LinearLayout>

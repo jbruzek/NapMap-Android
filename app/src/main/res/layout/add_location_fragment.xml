@@ -8,7 +8,7 @@
         android:id="@+id/mapview_add"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_weight="4"
         android:layout_marginBottom="32dp"
         android:elevation="2dp"/>
 
@@ -48,6 +48,7 @@
         <Button
             android:id="@+id/cancel_new_location"
             android:background="@drawable/button_secondary"
+            android:textColor="@color/purple"
             android:layout_width="0dp"
             android:layout_margin="16dp"
             android:layout_height="wrap_content"
