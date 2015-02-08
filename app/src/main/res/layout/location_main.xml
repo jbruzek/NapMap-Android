@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.jbruzek.myapplication.LocationActivity">
+    tools:context="com.bruzek.jbruzek.myapplication.LocationActivity">
     
     <LinearLayout
         android:layout_width="fill_parent"
@@ -29,6 +29,14 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_margin="16dp"/>
+
+        <TextView
+            android:id="@+id/location_fullness"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="16dp"
+            android:text="loading..."/>
 
         <RatingBar
             android:layout_width="wrap_content"
@@ -91,7 +99,16 @@
             android:layout_margin="16dp">
         </ListView>
 
-
+        <Button
+            android:id="@+id/add_more_comments"
+            android:background="@drawable/button_secondary"
+            android:textColor="@color/purple"
+            android:layout_width="match_parent"
+            android:layout_margin="16dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:elevation="2dp"
+            android:text="Load More Comments"/>
 
 
     </LinearLayout>

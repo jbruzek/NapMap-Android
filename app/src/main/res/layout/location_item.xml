@@ -34,13 +34,6 @@
             android:text="0.3 miles away"
             android:textSize="12sp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/location_sub_2"
-            android:text="3 people napping here"
-            android:textSize="12sp"/>
-
 
         </LinearLayout>
 </LinearLayout>
