@@ -103,7 +103,7 @@ public class LocationActivity extends Activity implements ParseCallbacks {
                     public void onClick(DialogInterface dialog, int which) {
                         String android_id = Settings.Secure.getString(context.getContentResolver(),
                                 Settings.Secure.ANDROID_ID);
-                        ph.rateNap(l.id(), which, android_id);
+                        ph.rateNap(l.id(), which + 1, android_id);
                     }
                 });
                 AlertDialog dialog = builder.create();

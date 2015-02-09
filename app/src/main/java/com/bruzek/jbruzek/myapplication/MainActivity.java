@@ -40,12 +40,6 @@ public class MainActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //set up Parse
-        //Parse.enableLocalDatastore(this);
-        //There's an issue with the local datastore where onPause and onResume crashes the app
-        //I could not find a solution to this. Lucky me, this app doesn't use the local datastore.
-        Parse.initialize(this, "ni4fDAUMR7GIrlUSN86APVmlrQt91a4UXO78tkyE", "lraQ7qAwiAfGylhV4wEWWtyLWmzhZweZnrjEZc1F");
-
 
         //set up the Nav Drawer
         mNavigationDrawerFragment = (NavigationDrawerFragment)
