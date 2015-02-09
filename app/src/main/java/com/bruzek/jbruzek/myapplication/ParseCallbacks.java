@@ -8,4 +8,5 @@ public interface ParseCallbacks {
     public void complete();
     public void commentsComplete();
     public void completeFullness(int full);
+    public void error();
 }

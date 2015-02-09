@@ -12,33 +12,29 @@
         android:layout_marginBottom="32dp"
         android:elevation="2dp"/>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="2"
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/location_title_input"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:inputType="textCapSentences|textAutoCorrect"
             android:hint="Location Name"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
 
         <EditText
             android:id="@+id/location_description_input"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:inputType="textCapSentences|textAutoCorrect"
             android:hint="Description"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"

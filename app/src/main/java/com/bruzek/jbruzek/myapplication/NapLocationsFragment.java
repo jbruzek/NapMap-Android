@@ -5,7 +5,6 @@ import android.app.ListFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +14,8 @@ import android.widget.TextView;
 
 import com.melnykov.fab.FloatingActionButton;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 /**
@@ -64,10 +65,8 @@ public class NapLocationsFragment extends ListFragment implements ParseCallbacks
     @Override
     public void complete() {
         list = ph.getLocations();
-        Log.d("score", "Length of list: " + list.size());
         Location[] locations = new Location[list.size()];
         for (int i = 0; i < list.size(); i++) {
-            Log.d("Location " + i + " id:", list.get(i).id() + "");
             locations[i] = list.get(i);
         }
 
@@ -85,13 +84,17 @@ public class NapLocationsFragment extends ListFragment implements ParseCallbacks
         //nothing here
     }
 
+    @Override
+    public void error() {
+        //nothing here
+    }
+
     /**
      * when an item is clicked
      */
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         Location li = list.get(position);
-        Log.d("intent", "Passing id " + li.id());
         Intent intent = new Intent(context, LocationActivity.class);
         intent.putExtra("id", li.id());
         intent.putExtra("title", li.title());
@@ -130,7 +133,8 @@ public class NapLocationsFragment extends ListFragment implements ParseCallbacks
             TextView title = (TextView) rowView.findViewById(R.id.location_title);
             title.setText(values[position].title());
             TextView rating = (TextView) rowView.findViewById(R.id.location_sub_1);
-            rating.setText(doubToString(values[position].rating()) + " out of 5 pillows");
+            String ratingString = doubToString(round(values[position].rating(), 1));
+            rating.setText(ratingString + " out of 5 pillows");
             return rowView;
         }
 
@@ -138,6 +142,14 @@ public class NapLocationsFragment extends ListFragment implements ParseCallbacks
             StringBuilder sb = new StringBuilder();
             sb.append(l);
             return sb.toString();
+        }
+
+        private double round(double value, int places) {
+            if (places < 0) throw new IllegalArgumentException();
+
+            BigDecimal bd = new BigDecimal(value);
+            bd = bd.setScale(places, RoundingMode.HALF_UP);
+            return bd.doubleValue();
         }
     }
 }

@@ -94,4 +94,9 @@ public class MapFragment extends Fragment implements ParseCallbacks {
     public void completeFullness(int full) {
         //nothing here
     }
+
+    @Override
+    public void error() {
+        //nothing here
+    }
 }

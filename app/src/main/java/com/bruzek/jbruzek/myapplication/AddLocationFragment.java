@@ -188,4 +188,9 @@ public class AddLocationFragment extends Fragment implements ParseCallbacks {
     public void completeFullness(int full) {
         //nothing here
     }
+
+    @Override
+    public void error() {
+        //nothing
+    }
 }

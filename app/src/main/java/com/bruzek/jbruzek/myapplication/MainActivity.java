@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -145,7 +146,12 @@ public class MainActivity extends Activity
         if (id == R.id.action_settings) {
             AlertDialog.Builder adb = new AlertDialog.Builder(this);
             adb.setTitle("NapMap");
-            adb.setMessage("NapMap was built as a part of VT Hacks 2015 by Joe and Adam. Logos and Icons by Katie and Sam.\n\nVersion 1.0\n2/8/2015");
+            adb.setMessage("NapMap was built as a part of VT Hacks 2015 by Joe and Adam. Logos and Icons by Katie and Sam.\n\nVersion 1.01\n2/9/2015");
+            adb.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    //nothing????
+                }
+            });
             adb.show();
         }
         return super.onOptionsItemSelected(item);

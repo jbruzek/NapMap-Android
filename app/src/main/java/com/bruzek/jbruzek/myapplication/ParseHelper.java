@@ -52,7 +52,6 @@ public class ParseHelper {
                         l.id(p.getObjectId());
                         locations.add(l);
                     }
-                    Log.d("locations", "Retrieved " + locList.size() + " locations");
                     pc.complete();
                 } else {
                     Log.d("score", "Error: " + e.getMessage());
@@ -89,7 +88,6 @@ public class ParseHelper {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("naps");
         query.whereEqualTo("napid", napId);
         Date date = new Date(System.currentTimeMillis() - (1 * 60 * 60 * 1000));
-        Log.d("Date", "" + date);
         query.whereGreaterThan("createdAt", date);
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> locList, ParseException e) {
@@ -104,7 +102,6 @@ public class ParseHelper {
 
     public void queryComments(String id, int num) {
         comments.clear();
-        Log.d("QUERY", "id: " + id);
         ParseQuery<ParseObject> query = ParseQuery.getQuery("comments");
         query.setLimit(num);
         query.orderByAscending("createdAt");
@@ -115,7 +112,6 @@ public class ParseHelper {
                     for (ParseObject p : locList) {
                         comments.add(p.getString("comment"));
                     }
-                    Log.d("Comments", "Retrieved " + locList.size() + " comments");
                     pc.commentsComplete();
                 } else {
                     Log.d("score", "Error: " + e.getMessage());
@@ -149,6 +145,9 @@ public class ParseHelper {
                     if (locList.size() == 0) {
                         submitRating(napId, rating, deviceId);
                     }
+                    else {
+                        pc.error();
+                    }
                 } else {
                     Log.d("score", "Error: " + e.getMessage());
                 }
@@ -175,24 +174,29 @@ public class ParseHelper {
         });
     }
 
-    public void fixRating(String napId) {
-        final ArrayList<Integer> ratings = new ArrayList<Integer>();
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("ratings");
+    public void fixRating(final String napId) {
+        final ParseQuery<ParseObject> query = ParseQuery.getQuery("ratings");
         query.whereEqualTo("napid", napId);
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> locList, ParseException e) {
                 if (e == null) {
+                    ArrayList<Integer> ratings = new ArrayList<Integer>();
                     for(ParseObject p : locList) {
                         ratings.add(p.getInt("rating"));
                     }
+                    updateRating(napId, ratings);
                 } else {
                     Log.d("score", "Error: " + e.getMessage());
                 }
             }
         });
+
+    }
+
+    private void updateRating(String napId, ArrayList<Integer> ratings) {
         final double finalRating = average(ratings);
 
-        ParseQuery<ParseObject> query2 = ParseQuery.getQuery("locations");
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("locations");
         query.getInBackground(napId, new GetCallback<ParseObject>() {
             public void done(ParseObject location, ParseException e) {
                 if (e == null) {
@@ -223,6 +227,9 @@ public class ParseHelper {
                 }
             }
         });
+        if (list.size() == 0) {
+            list.add(0);
+        }
         final double finalRating = average(list);
 
         ParseQuery<ParseObject> query2 = ParseQuery.getQuery("locations");

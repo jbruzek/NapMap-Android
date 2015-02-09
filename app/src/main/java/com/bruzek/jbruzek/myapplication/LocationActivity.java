@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -49,12 +50,23 @@ public class LocationActivity extends Activity implements ParseCallbacks {
     private Button moreComments;
     private Location l;
     private ArrayList<String> comments;
+    private String androidId;
+    private String napId;
     private int numComments = 10;
+
+    @Override
+    public void onBackPressed() {
+        ph.fixRating(napId);
+        super.onBackPressed();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.location_main);
+
+        androidId = Settings.Secure.getString(this.getContentResolver(),
+                                Settings.Secure.ANDROID_ID);
 
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -80,11 +92,11 @@ public class LocationActivity extends Activity implements ParseCallbacks {
         ph = new ParseHelper(this);
 
         Intent intent = getIntent();
-        String id = intent.getStringExtra("id");
-        ph.queryById(id);
-        ph.queryFullness(id);
-        ph.queryComments(id, numComments);
-        ph.fixRating(id);
+        napId = intent.getStringExtra("id");
+        ph.queryById(napId);
+        ph.queryFullness(napId);
+        ph.queryComments(napId, numComments);
+        ph.fixRating(napId);
         String nap_title = intent.getStringExtra("title");
         title.setText(nap_title);
         setTitle(nap_title);
@@ -95,17 +107,25 @@ public class LocationActivity extends Activity implements ParseCallbacks {
         rate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //on click rate
                 AlertDialog.Builder builder = new AlertDialog.Builder((Activity)context);
-                builder.setTitle("Rate Nap Location");
-                String[] pillows = {"1 Pillow", "2 Pillows", "3 Pillows", "4 Pillows", "5 Pillows"};
-                builder.setItems(pillows, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        String android_id = Settings.Secure.getString(context.getContentResolver(),
-                                Settings.Secure.ANDROID_ID);
-                        ph.rateNap(l.id(), which + 1, android_id);
+                builder.setTitle("Rate");
+                // Get the layout inflater
+                LayoutInflater inflater = getLayoutInflater();
+                final View view = inflater.inflate(R.layout.rate_dialog, null);
+                builder.setView(view);
+                // Add action buttons
+                builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        RatingBar rate = (RatingBar) view.findViewById(R.id.rate_dialog_bar);
+                        ph.rateNap(l.id(), (int) rate.getRating(), androidId);
                     }
-                });
+                })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                //nothing????
+                            }
+                        });
                 AlertDialog dialog = builder.create();
                 dialog.show();
             }
@@ -230,6 +250,11 @@ public class LocationActivity extends Activity implements ParseCallbacks {
     public void completeFullness(int full) {
         if (full == 1) fullness.setText(full + " person napping here now");
         else fullness.setText(full + " people napping here now");
+    }
+
+    @Override
+    public void error() {
+        Toast.makeText(this, "You've already rated this location", Toast.LENGTH_SHORT).show();
     }
 
     @Override
