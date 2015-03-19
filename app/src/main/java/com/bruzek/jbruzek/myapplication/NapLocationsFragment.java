@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.melnykov.fab.FloatingActionButton;
+import com.software.shell.fab.ActionButton;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -38,9 +39,14 @@ public class NapLocationsFragment extends ListFragment implements ParseCallbacks
         View v = inflater.inflate(R.layout.locations_fragment, container, false);
         container.removeAllViews();
         ListView listView = (ListView) v.findViewById(android.R.id.list);
-        FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
-        fab.attachToListView(listView);
-        fab.show(false);
+
+        //Floating action button taken from here:
+        // https://github.com/shell-software/fab
+        ActionButton actionButton = (ActionButton) v.findViewById(R.id.action_button);
+        actionButton.show();
+        actionButton.setButtonColor(getResources().getColor(R.color.purple));
+        actionButton.setButtonColorPressed(getResources().getColor(R.color.dark_purple));
+        actionButton.setImageDrawable(getResources().getDrawable(R.drawable.fab_plus_icon));
 
         context = getActivity().getApplicationContext();
 

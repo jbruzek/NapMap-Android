@@ -11,4 +11,8 @@
         parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@color/purple</item>
     </style>
+
+    <style name="Theme.Hamburger" parent="android:Theme.Holo">
+        <item name="android:homeAsUpIndicator">@drawable/ic_hamburger</item>
+    </style>
 </resources>
