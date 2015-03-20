@@ -1,6 +1,8 @@
 package com.bruzek.jbruzek.myapplication;
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.content.Context;
 import android.content.Intent;
@@ -43,10 +45,26 @@ public class NapLocationsFragment extends ListFragment implements ParseCallbacks
         //Floating action button taken from here:
         // https://github.com/shell-software/fab
         ActionButton actionButton = (ActionButton) v.findViewById(R.id.action_button);
-        actionButton.show();
         actionButton.setButtonColor(getResources().getColor(R.color.purple));
         actionButton.setButtonColorPressed(getResources().getColor(R.color.dark_purple));
         actionButton.setImageDrawable(getResources().getDrawable(R.drawable.fab_plus_icon));
+        actionButton.setShowAnimation(ActionButton.Animations.JUMP_FROM_DOWN);
+        actionButton.setHideAnimation(ActionButton.Animations.JUMP_TO_DOWN);
+        actionButton.playShowAnimation();
+
+        actionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddLocationFragment addFrag = null;
+                FragmentManager fm = getFragmentManager();
+                if (fm.findFragmentById(R.layout.add_location_fragment) == null) {
+                    addFrag = new AddLocationFragment();
+                }
+                FragmentTransaction ft3 = fm.beginTransaction();
+                ft3.replace(R.id.container, addFrag)
+                        .commit();
+            }
+        });
 
         context = getActivity().getApplicationContext();
 

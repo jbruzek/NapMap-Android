@@ -8,6 +8,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,6 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.parse.Parse;
 
@@ -40,6 +43,9 @@ public class MainActivity extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
 
 
         //set up the Nav Drawer
@@ -87,15 +93,6 @@ public class MainActivity extends Activity
                 ft2.replace(R.id.container, locationsFrag)
                         .commit();
                 mTitle = getString(R.string.nap_locations);
-                break;
-            case 2:
-                if (fm.findFragmentById(R.layout.add_location_fragment) == null) {
-                    addFrag = new AddLocationFragment();
-                }
-                FragmentTransaction ft3 = fm.beginTransaction();
-                ft3.replace(R.id.container, addFrag)
-                        .commit();
-                mTitle = getString(R.string.submit);
                 break;
         }
 

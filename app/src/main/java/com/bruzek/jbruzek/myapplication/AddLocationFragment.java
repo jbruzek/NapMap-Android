@@ -2,6 +2,8 @@ package com.bruzek.jbruzek.myapplication;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -91,6 +93,7 @@ public class AddLocationFragment extends Fragment implements ParseCallbacks {
             @Override
             public void onClick(View v) {
                 clear();
+                returnToLocations();
             }
         });
         submit = (Button)v.findViewById(R.id.submit_new_location);
@@ -138,10 +141,23 @@ public class AddLocationFragment extends Fragment implements ParseCallbacks {
                 }
                 ph.submitLocation(location, name.getText().toString(), description.getText().toString());
                 clear();
+
+                returnToLocations();
             }
         });
 
         return v;
+    }
+
+    private void returnToLocations() {
+        NapLocationsFragment locFrag = null;
+        FragmentManager fm = getFragmentManager();
+        if (fm.findFragmentById(R.layout.locations_fragment) == null) {
+            locFrag = new NapLocationsFragment();
+        }
+        FragmentTransaction ft3 = fm.beginTransaction();
+        ft3.replace(R.id.container, locFrag)
+                .commit();
     }
 
     private void clear() {
