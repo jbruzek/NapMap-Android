@@ -61,8 +61,9 @@ public class NapLocationsFragment extends ListFragment implements ParseCallbacks
                     addFrag = new AddLocationFragment();
                 }
                 FragmentTransaction ft3 = fm.beginTransaction();
-                ft3.replace(R.id.container, addFrag)
+                ft3.replace(R.id.container, addFrag).addToBackStack(null)
                         .commit();
+
             }
         });
 
